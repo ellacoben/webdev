@@ -1,15 +1,15 @@
-<link rel="stylesheet" type="text/css" href="style.css">
+
 <h1>To Do List</h1>
-
-
+<table align="center">
 <% @lines.each do |line| %>
   <tr>
     <td><%= line %></td> <br>
   </tr>
 <% end %>
+</table>
 
-
-<h2> Use this form to add a new task and a due date to the To Do List:</h2>
+<br><br><br><br>
+<h2> If you love America, use this form to add a new task and a due date to the To Do List:</h2>
 <form action='/' method='POST'>
   <strong>New Task:</strong>
   <input type='text' name='task' placeholder='task content' />
