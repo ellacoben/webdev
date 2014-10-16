@@ -13,30 +13,31 @@ ActiveRecord::Base.establish_connection(
 	encoding: 'utf8'
 )
 
-get '/' do
-	@tasks = TodoItem.all.order(:due_date)
-	erb :index
-end
-
-post '/' do
-	TodoItem.create(params)
-	redirect '/'
-end
-
 #get '/' do
-#	# lines.each do |line|
-#	# 	@tasks = line.split("\n")
-#	# end
+#	@tasks = TodoItem.all.order(:due_date)
 #	erb :index
 #end
 
 #post '/' do
-#	File.open('todo.txt', 'a+') do |file|
-#		unless params[:date].empty?
-#			file.puts "#{params[:task]} - #{params[:date]}" 
-#		else 
-#			file.puts "#{params[:task]}"
-#		end
-#	end
+#	TodoItem.create(params)
 #	redirect '/'
 #end
+
+get '/' do
+	@lines = File.read("todo.txt").split("\n")
+	# lines.each do |line|
+	# 	@tasks = line.split("\n")
+	# end
+	erb :index
+end
+
+post '/' do
+	File.open('todo.txt', 'a+') do |file|
+		unless params[:date].empty?
+			file.puts "#{params[:task]} - #{params[:date]}" 
+		else 
+			file.puts "#{params[:task]}"
+		end
+	end
+	redirect '/'
+end
