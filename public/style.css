@@ -9,10 +9,13 @@ body {
 	text-align: center;
 	min-height: 100%;
 	color: #000099;
+	font-family: "Verdana", sans-serif;
+	font-weight: bold;
 	
 }
 
 h1 {
 	text-align: center;
 	color: #FF0000;
+	font-family: "Verdana", sans-serif;
 }

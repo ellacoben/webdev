@@ -8,36 +8,41 @@ Bundler.require
 require './models/TodoItem'
 
 ActiveRecord::Base.establish_connection(
-	adapter: 'sqlite3',
-	database: 'db/development.db',
-	encoding: 'utf8'
+	:adapter => 'sqlite3',
+	:database => 'db/development.db',
+	:encoding =>'utf8'
 )
 
-#get '/' do
-#	@tasks = TodoItem.all.order(:due_date)
-#	erb :index
-#end
-
-#post '/' do
-#	TodoItem.create(params)
-#	redirect '/'
-#end
-
  get '/' do
- 	@lines = File.read("todo.txt").split("\n")
- 	# lines.each do |line|
- 	# 	@tasks = line.split("\n")
- 	# end
- 	erb :index
+	 @tasks = TodoItem.all.order(:due_date)
+	 erb :index
  end
 
  post '/' do
- 	File.open('todo.txt', 'a+') do |file|
- 		unless params[:date].empty?
- 			file.puts "#{params[:task]} - #{params[:date]}" 
- 		else 
- 			file.puts "#{params[:task]}"
- 		end
- 	end
- 	redirect '/'
+	 TodoItem.create(description: params[:task], due_date: params[:date])
+	 redirect '/'
  end
+
+#get 'delete/:id' do
+#	TodoItem.find(params[:id]).destroy
+#	redirect '/'
+#end
+
+# get '/' do
+ #	@lines = File.read("todo.txt").split("\n")
+ #	# lines.each do |line|
+ #	# 	@tasks = line.split("\n")
+ #	# end
+ #	erb :index
+ #end
+
+ #post '/' do
+ #	File.open('todo.txt', 'a+') do |file|
+ #		unless params[:date].empty?
+ #			file.puts "#{params[:task]} - #{params[:date]}" 
+ #		else 
+ #			file.puts "#{params[:task]}"
+ #		end
+#	end
+ #	redirect '/'
+ #end
