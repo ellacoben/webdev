@@ -23,21 +23,21 @@ ActiveRecord::Base.establish_connection(
 #	redirect '/'
 #end
 
-get '/' do
-	@lines = File.read("todo.txt").split("\n")
-	# lines.each do |line|
-	# 	@tasks = line.split("\n")
-	# end
-	erb :index
-end
+ get '/' do
+ 	@lines = File.read("todo.txt").split("\n")
+ 	# lines.each do |line|
+ 	# 	@tasks = line.split("\n")
+ 	# end
+ 	erb :index
+ end
 
-post '/' do
-	File.open('todo.txt', 'a+') do |file|
-		unless params[:date].empty?
-			file.puts "#{params[:task]} - #{params[:date]}" 
-		else 
-			file.puts "#{params[:task]}"
-		end
-	end
-	redirect '/'
-end
+ post '/' do
+ 	File.open('todo.txt', 'a+') do |file|
+ 		unless params[:date].empty?
+ 			file.puts "#{params[:task]} - #{params[:date]}" 
+ 		else 
+ 			file.puts "#{params[:task]}"
+ 		end
+ 	end
+ 	redirect '/'
+ end
