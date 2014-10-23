@@ -27,10 +27,10 @@ end
 	 redirect '/'
  end
 
-#get 'delete/:id' do
-#	TodoItem.find(params[:id]).destroy
-#	redirect '/'
-#end
+get '/delete/:id' do
+	TodoItem.find(params[:id]).destroy
+	redirect '/'
+end
 
 # get '/' do
  #	@lines = File.read("todo.txt").split("\n")

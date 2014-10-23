@@ -1,10 +1,13 @@
 
 <h1>To Do List</h1>
 
- <% @tasks.each do |task| %> 
-   <%= task.description %> <% unless task.due_date.blank? %> - <% end %>
+ <% @tasks.each do |task| %>  
+   <% unless task.description.blank? %> <%= task.description %> <% end %>
+   <% unless task.due_date.blank? %> - <% end %>
    <%= task.due_date %>
-   <br>
+   <% unless task.description.blank? %> 
+   <a style="text-decoration: none" href='/delete/<%= task.id %>'><button class="button"> Done! </button> </a> <% end %>
+   <% unless task.description.blank? %> <br> <%end%>
   <% end %> 
  
 
@@ -12,10 +15,15 @@
 <form action='/' method='POST'>
   <strong>New Task:</strong>
   <input type='text' name='task' placeholder='task content' />
-  <input type='text' name='date' placeholder='due: mm/dd/yy' />
-  <input type='submit' value='Save'>
+  <input type='text' name='date' placeholder='due: yy/mm/dd' />
+  <input type='submit' value='Save'/>
 </form>
-
+<br>
+<!-- <form action='/' method='POST'>
+  <strong>Finished Task:</strong>
+  <input type='text' name='completed' placeholder='finished task' />
+  <input type='submit' value='Save'/>
+</form> -->
 
 
 
