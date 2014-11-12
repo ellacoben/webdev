@@ -6,6 +6,7 @@ require 'bundler/setup'
 # load all of the gems in the gemfile
 Bundler.require
 require './models/TodoItem'
+require './models/User'
 
 if ENV['DATABASE_URL'] 
 	ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'])
@@ -17,36 +18,46 @@ else
 )
 end
 
- get '/' do
-	 @tasks = TodoItem.all.order(:due_date)
-	 erb :index
+ # get '/' do
+	#  @tasks = TodoItem.all.order(:due_date)
+	#  erb :index
+ # end
+
+ post '/:user/new_item' do
+ 	User.find(params[:user]).todo_items.create(description: params[:task], due_date: params[:date])
+	 redirect "/#{params[:user]}"
  end
 
- post '/' do
-	 TodoItem.create(description: params[:task], due_date: params[:date])
-	 redirect '/'
+ post '/new_user' do 
+ 	@user = User.create(params)
+ 	redirect '/'
  end
 
-get '/delete/:id' do
-	TodoItem.find(params[:id]).destroy
+
+get '/delete_user/:user' do
+	User.find(params[:user]).destroy
 	redirect '/'
 end
 
-# get '/' do
- #	@lines = File.read("todo.txt").split("\n")
- #	# lines.each do |line|
- #	# 	@tasks = line.split("\n")
- #	# end
- #	erb :index
- #end
+get '/delete_item/:item' do
+	@todo_item = TodoItem.find(params[:item])
+	@user = @todo_item.user
+	@todo_item.destroy
+	redirect "/#{@user.id}"
+end
 
- #post '/' do
- #	File.open('todo.txt', 'a+') do |file|
- #		unless params[:date].empty?
- #			file.puts "#{params[:task]} - #{params[:date]}" 
- #		else 
- #			file.puts "#{params[:task]}"
- #		end
-#	end
- #	redirect '/'
- #end
+get '/' do
+  @users = User.all.order(:name)
+  erb :user_list
+end
+
+get '/:user' do
+  @user = User.find(params[:user])
+  @tasks = @user.todo_items.order(:due_date)
+  # @list = User.all.order(:name)
+  erb :todo_list
+end
+
+
+
+
