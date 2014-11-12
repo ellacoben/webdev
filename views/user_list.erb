@@ -4,7 +4,7 @@
  <% @users.each do |user| %>  
    <span title="See this user's to do list"><a href='/<%= user.id %>'><%= user.name %></a></span>
    <% unless user.name.blank? %> 
-   <a style="text-decoration: none" href='/delete_user/<%= user.id %>'><button class="button"> Delete User </button> </a> <br><% end %>
+   <a style="text-decoration: none" href='/delete_user/<%= user.id %>'><button class="button"> Delete User </button> </a> <br><br><% end %>
   <% end %> 
  
 <br><br>
